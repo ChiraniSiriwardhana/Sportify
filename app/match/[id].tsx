@@ -335,6 +335,7 @@
 
 // app/match/[id].tsx
 import { Feather } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
@@ -406,16 +407,21 @@ export default function MatchDetailsScreen() {
   return (
     <View style={[styles.container, { backgroundColor: theme.backgroundSecondary }]}>
       {/* Header */}
-      <View style={[styles.header, { backgroundColor: theme.card, borderBottomColor: theme.border }]}>
+      <LinearGradient
+        colors={[theme.primary, theme.purple]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.header}
+      >
         <TouchableOpacity
           onPress={() => router.back()}
           style={styles.backButton}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
-          <Feather name="arrow-left" size={24} color={theme.text} />
+          <Feather name="arrow-left" size={24} color="#fff" />
         </TouchableOpacity>
 
-        <Text style={[styles.headerTitle, { color: theme.text }]}>Match Details</Text>
+        <Text style={styles.headerTitle}>Match Details</Text>
 
         <TouchableOpacity
           onPress={handleFavoritePress}
@@ -425,15 +431,18 @@ export default function MatchDetailsScreen() {
           <Feather
             name="heart"
             size={24}
-            color={isFavorite ? theme.error : theme.textSecondary}
-            fill={isFavorite ? theme.error : 'none'}
+            color={isFavorite ? '#FF1744' : '#fff'}
+            fill={isFavorite ? '#FF1744' : 'none'}
           />
         </TouchableOpacity>
-      </View>
+      </LinearGradient>
 
       <ScrollView style={styles.content}>
         {/* Match Info Card */}
-        <View
+        <LinearGradient
+          colors={[theme.primary + '15', theme.purple + '15']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
           style={[
             styles.matchCard,
             {
@@ -511,10 +520,13 @@ export default function MatchDetailsScreen() {
               </Text>
             </View>
           )}
-        </View>
+        </LinearGradient>
 
         {/* Details Card */}
-        <View
+        <LinearGradient
+          colors={[theme.purple + '10', theme.primary + '10']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
           style={[
             styles.detailsCard,
             { backgroundColor: theme.card, shadowColor: theme.shadow },
@@ -557,11 +569,14 @@ export default function MatchDetailsScreen() {
               theme={theme}
             />
           )}
-        </View>
+        </LinearGradient>
 
         {/* Description */}
         {selectedMatch.strDescriptionEN && (
-          <View
+          <LinearGradient
+            colors={[theme.primary + '08', theme.purple + '08']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
             style={[
               styles.detailsCard,
               { backgroundColor: theme.card, shadowColor: theme.shadow },
@@ -571,7 +586,7 @@ export default function MatchDetailsScreen() {
             <Text style={[styles.description, { color: theme.textSecondary }]}>
               {selectedMatch.strDescriptionEN}
             </Text>
-          </View>
+          </LinearGradient>
         )}
       </ScrollView>
     </View>
@@ -602,7 +617,6 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingBottom: 16,
     paddingHorizontal: 16,
-    borderBottomWidth: 1,
   },
   content: {
     flex: 1,
@@ -613,6 +627,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '600',
+    color: '#fff',
   },
   favoriteButton: {
     padding: 8,
