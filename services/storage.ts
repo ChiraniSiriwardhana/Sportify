@@ -6,6 +6,9 @@ import { Platform } from 'react-native';
 const KEYS = {
   USER_TOKEN: 'sportify_user_token',
   USER_DATA: '@sportify_user_data',
+  FAVORITES: '@sportify_favorites',
+  THEME: '@sportify_theme',
+
 };
 
 // Use SecureStore for sensitive data (tokens) on native, AsyncStorage for web
@@ -91,10 +94,89 @@ export const clearAuthData = async (): Promise<boolean> => {
   }
 };
 
+// ============ Favorites Storage ============
+export const saveFavorites = async (favorites: any[]): Promise<boolean> => {
+  try {
+    const jsonValue = JSON.stringify(favorites);
+    await AsyncStorage.setItem(KEYS.FAVORITES, jsonValue);
+    return true;
+  } catch (error) {
+    console.error('Error saving favorites:', error);
+    return false;
+  }
+};
+
+export const getFavorites = async (): Promise<any[]> => {
+  try {
+    const jsonValue = await AsyncStorage.getItem(KEYS.FAVORITES);
+    return jsonValue != null ? JSON.parse(jsonValue) : [];
+  } catch (error) {
+    console.error('Error getting favorites:', error);
+    return [];
+  }
+};
+
+export const addToFavorites = async (item: any) => {
+  try {
+    const favorites = await getFavorites();
+    const isAlreadyFavorite = favorites.some((fav: any) => fav.idEvent === item.idEvent);
+    
+    if (!isAlreadyFavorite) {
+      favorites.push(item);
+      await saveFavorites(favorites);
+      return { success: true, favorites };
+    }
+    
+    return { success: false, message: 'Already in favorites' };
+  } catch (error) {
+    console.error('Error adding to favorites:', error);
+    return { success: false, error };
+  }
+};
+
+export const removeFromFavorites = async (itemId: string) => {
+  try {
+    const favorites = await getFavorites();
+    const updatedFavorites = favorites.filter((fav: any) => fav.idEvent !== itemId);
+    await saveFavorites(updatedFavorites);
+    return { success: true, favorites: updatedFavorites };
+  } catch (error) {
+    console.error('Error removing from favorites:', error);
+    return { success: false, error };
+  }
+};
+
+// ============ Theme Storage ============
+export const saveTheme = async (theme: string): Promise<boolean> => {
+  try {
+    await AsyncStorage.setItem(KEYS.THEME, theme);
+    return true;
+  } catch (error) {
+    console.error('Error saving theme:', error);
+    return false;
+  }
+};
+
+export const getTheme = async (): Promise<string> => {
+  try {
+    const theme = await AsyncStorage.getItem(KEYS.THEME);
+    return theme || 'light';
+  } catch (error) {
+    console.error('Error getting theme:', error);
+    return 'light';
+  }
+};
+
 export default {
   saveUserToken,
   getUserToken,
   saveUserData,
   getUserData,
   clearAuthData,
+  saveFavorites,
+  getFavorites,
+  addToFavorites,
+  removeFromFavorites,
+  saveTheme,
+  getTheme,
 };
