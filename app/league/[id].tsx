@@ -1,5 +1,6 @@
 // app/league/[id].tsx
 import { Feather } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
@@ -85,31 +86,31 @@ export default function LeagueDetailsScreen() {
   return (
     <View style={[styles.container, { backgroundColor: theme.backgroundSecondary }]}>
       {/* Header */}
-      <View
-        style={[
-          styles.header,
-          { backgroundColor: theme.card, borderBottomColor: theme.border },
-        ]}
+      <LinearGradient
+        colors={[theme.primary, theme.purple]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.header}
       >
         <TouchableOpacity
           onPress={() => router.back()}
           style={styles.backButton}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
-          <Feather name="arrow-left" size={24} color={theme.text} />
+          <Feather name="arrow-left" size={24} color="#fff" />
         </TouchableOpacity>
 
         <View style={styles.headerTitleContainer}>
-          <Text style={[styles.headerTitle, { color: theme.text }]} numberOfLines={1}>
+          <Text style={styles.headerTitle} numberOfLines={1}>
             {name || 'League'}
           </Text>
-          <Text style={[styles.headerSubtitle, { color: theme.textSecondary }]}>
+          <Text style={styles.headerSubtitle}>
             {displayMatches.length} matches
           </Text>
         </View>
 
         <View style={styles.backButton} />
-      </View>
+      </LinearGradient>
 
       {/* Tabs */}
       <View style={[styles.tabContainer, { backgroundColor: theme.card }]}>
@@ -214,7 +215,6 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingBottom: 16,
     paddingHorizontal: 16,
-    borderBottomWidth: 1,
   },
   backButton: {
     padding: 8,
@@ -227,10 +227,12 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '600',
+    color: '#fff',
   },
   headerSubtitle: {
     fontSize: 12,
     marginTop: 2,
+    color: 'rgba(255,255,255,0.9)',
   },
   tabContainer: {
     flexDirection: 'row',
