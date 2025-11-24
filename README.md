@@ -5,7 +5,6 @@ A modern, feature-rich sports tracking mobile application built with React Nativ
 ![React Native](https://img.shields.io/badge/React_Native-0.81.5-blue)
 ![Expo](https://img.shields.io/badge/Expo-~54.0.25-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.3.3-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
 
 ## ✨ Features
 
