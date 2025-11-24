@@ -1,22 +1,23 @@
 // app/(auth)/register.tsx
+import { Feather } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  KeyboardAvoidingView,
-  Platform,
-  Alert,
-  ScrollView,
+    Alert,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from 'react-native';
-import { Feather } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import { useAppDispatch } from '../../redux/hooks';
-import { register, clearError } from '../../redux/slices/authSlice';
-import { validateForm, registerSchema } from '../../utils/validations';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import { useAppDispatch } from '../../redux/hooks';
+import { clearError, register } from '../../redux/slices/authSlice';
+import { registerSchema, validateForm } from '../../utils/validations';
 
 export default function RegisterScreen() {
   const router = useRouter();
@@ -77,7 +78,7 @@ export default function RegisterScreen() {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-            <Feather name="arrow-left" size={24} color="#007AFF" />
+            <Feather name="arrow-left" size={24} color="#667eea" />
           </TouchableOpacity>
           <Text style={styles.title}>Create Account</Text>
           <Text style={styles.subtitle}>Join Sportify today</Text>
@@ -150,8 +151,15 @@ export default function RegisterScreen() {
           )}
 
           {/* Register Button */}
-          <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
-            <Text style={styles.registerButtonText}>Create Account</Text>
+          <TouchableOpacity onPress={handleRegister}>
+            <LinearGradient
+              colors={['#667eea', '#764ba2']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={styles.registerButton}
+            >
+              <Text style={styles.registerButtonText}>Create Account</Text>
+            </LinearGradient>
           </TouchableOpacity>
 
           {/* Login Link */}
@@ -221,7 +229,6 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   registerButton: {
-    backgroundColor: '#007AFF',
     height: 50,
     borderRadius: 8,
     justifyContent: 'center',
@@ -244,7 +251,7 @@ const styles = StyleSheet.create({
   },
   loginLink: {
     fontSize: 14,
-    color: '#007AFF',
+    color: '#667eea',
     fontWeight: '600',
   },
 });

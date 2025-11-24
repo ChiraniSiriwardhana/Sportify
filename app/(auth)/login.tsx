@@ -1,5 +1,6 @@
 // app/(auth)/login.tsx
 import { Feather } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
@@ -69,7 +70,7 @@ export default function LoginScreen() {
     >
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
-          <Feather name="activity" size={64} color="#007AFF" />
+          <Feather name="activity" size={64} color="#667eea" />
           <Text style={styles.title}>Sportify</Text>
           <Text style={styles.subtitle}>Track your favorite sports</Text>
         </View>
@@ -108,13 +109,20 @@ export default function LoginScreen() {
 
           {/* Demo Credentials Button */}
           <TouchableOpacity onPress={fillDemoCredentials} style={styles.demoButton}>
-            <Feather name="info" size={16} color="#007AFF" />
+            <Feather name="info" size={16} color="#667eea" />
             <Text style={styles.demoText}>Use demo credentials</Text>
           </TouchableOpacity>
 
           {/* Login Button */}
-          <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-            <Text style={styles.loginButtonText}>Login</Text>
+          <TouchableOpacity onPress={handleLogin}>
+            <LinearGradient
+              colors={['#667eea', '#764ba2']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={styles.loginButton}
+            >
+              <Text style={styles.loginButtonText}>Login</Text>
+            </LinearGradient>
           </TouchableOpacity>
 
           {/* Register Link */}
@@ -189,12 +197,11 @@ const styles = StyleSheet.create({
     marginVertical: 12,
   },
   demoText: {
-    color: '#007AFF',
+    color: '#667eea',
     fontSize: 14,
     marginLeft: 6,
   },
   loginButton: {
-    backgroundColor: '#007AFF',
     height: 50,
     borderRadius: 8,
     justifyContent: 'center',
@@ -217,7 +224,7 @@ const styles = StyleSheet.create({
   },
   registerLink: {
     fontSize: 14,
-    color: '#007AFF',
+    color: '#667eea',
     fontWeight: '600',
   },
 });
